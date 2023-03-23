@@ -23,18 +23,10 @@ body {
     padding-bottom: 2rem;
     font-size: 2rem;
     color: #000000;
-<<<<<<< HEAD
-<<<<<<< HEAD
 
     /*Neon effect | the more commas, the longer the tail of the shadow | then fades away*/
 
     text-shadow: 0 0 7px #bc13fe, 0 0 10px #bc13fe, 0 0 21px #bc13fe, 0 0 42px #5271ff,
-=======
-    text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff,
->>>>>>> 7992efe5a0bf54f919961a6b5bf6f48d92846cbc
-=======
-    text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff,
->>>>>>> dae0cfb36bb6e58a1c48a1f6d6d6949733a903e5
       0 0 82px #5271ff, 0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
   }
   .title {
@@ -59,14 +51,8 @@ body {
   #restartBtn {
     padding-left: 2rem;
   }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
   /*Wraps the gameboard*/
-=======
->>>>>>> 7992efe5a0bf54f919961a6b5bf6f48d92846cbc
-=======
->>>>>>> dae0cfb36bb6e58a1c48a1f6d6d6949733a903e5
   
   .gameWrapper {
     display: flex;
@@ -94,8 +80,6 @@ body {
     align-items: center;
     text-align: center;
     padding-left: 1.6vw;
-<<<<<<< HEAD
-<<<<<<< HEAD
     background-color: rgb(0, 0, 0);
 
     /*Neon effect | the more commas, the longer the tail of the shadow | then fades away*/
@@ -106,16 +90,6 @@ body {
 
     /*When hovering over the squares, they get bigger*/
 
-=======
-    box-shadow: 0 0 0.8rem #000000, 0 0 0.8rem #000000, 0 0 2rem #bc13fe,
-      0 0 0.8rem #bc13fe, 0 0 2.8rem #ffffff, inset 0 0 1.3rem #bc13fe;
-    color: #000000;
->>>>>>> 7992efe5a0bf54f919961a6b5bf6f48d92846cbc
-=======
-    box-shadow: 0 0 0.8rem #000000, 0 0 0.8rem #000000, 0 0 2rem #bc13fe,
-      0 0 0.8rem #bc13fe, 0 0 2.8rem #ffffff, inset 0 0 1.3rem #bc13fe;
-    color: #000000;
->>>>>>> dae0cfb36bb6e58a1c48a1f6d6d6949733a903e5
     transition: all 0.15s ease-in-out;
     cursor: pointer;
   }
@@ -131,14 +105,8 @@ body {
     transform: scale(1.1);
   }
   
-<<<<<<< HEAD
-<<<<<<< HEAD
   /*This sets the game to be dynamic | When shrinking your window, the game will auto adapt | otherwise, execute .gameboard*/
 
-=======
->>>>>>> 7992efe5a0bf54f919961a6b5bf6f48d92846cbc
-=======
->>>>>>> dae0cfb36bb6e58a1c48a1f6d6d6949733a903e5
   @media only screen and (max-width: 900px) {
     .gameWrapper {
       width: 100vw;
@@ -148,14 +116,8 @@ body {
     }
   }
   
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 7992efe5a0bf54f919961a6b5bf6f48d92846cbc
-=======
->>>>>>> dae0cfb36bb6e58a1c48a1f6d6d6949733a903e5
   .modal-wrapper {
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4); 
