@@ -26,6 +26,12 @@ const winningConditions = [
 ];
 
 const form = document.querySelector("#myForm");
+const newGameBtn = document.querySelector("#restartBtn");
+const resetGameBtn = document.querySelector("#resetBtn");
+
+newGameBtn.addEventListener("click", () => {
+    location.reload();
+  });
 
 form.addEventListener("submit", (event) => {
   event.preventDefault(); // prevents page from refreshing and losing the user form
@@ -51,6 +57,13 @@ const initializeVariables = (data) => {
   // the goal is to not use as many global variables
 };
 
+const resetDom = () => {
+    document.querySelectorAll(".box").forEach((box) => {
+      box.className = "box";
+      box.textContent = "";
+    });
+  };
+
 const addEventListenerToGameBoard = (data) => {
   document.querySelectorAll(".box").forEach((box) => {
     // loop through each box and adds event listener
@@ -58,10 +71,15 @@ const addEventListenerToGameBoard = (data) => {
       playMove(event.target, data); // can be used to mark the gameboard, check win condition, change players etc.,
     });
   });
+  resetGameBtn.addEventListener("click", () => {
+    initializeVariables(data);
+    resetDom();
+    adjustDom("displayTurn", `${data.player1Name}'s turn`);
+  });
 };
 
 const initializeGame = (data) => {
-  adjustDom('displayTurn', `${data.player1Name}'s turn`)
+  adjustDom("displayTurn", `${data.player1Name}'s turn`);
   // initialize game variables
   initializeVariables(data);
   //console.log(data);
@@ -101,14 +119,13 @@ const playMove = (box, data) => {
   // change current player
   // change the DOM, and change data.currentPlayer
   if (data.choice === 0) {
-    changePlayer(data)
+    changePlayer(data);
   } else if (data.choice === 1) {
     // easy ai
     easyAiMove(data);
-    data.currentPlayer = "X"
+    data.currentPlayer = "X";
     // change back to player1
   }
-
 };
 
 const endConditions = (data) => {
@@ -118,9 +135,10 @@ const endConditions = (data) => {
   // game not over yet
   if (checkWinner(data)) {
     // adjust the DOM to reflect win
-    // display winner name 
-    let winnerName = data.currentPlayer === "X" ? data.player1Name : data.player2Name
-    adjustDom("displayTurn", winnerName  + " has won the game");
+    // display winner name
+    let winnerName =
+      data.currentPlayer === "X" ? data.player1Name : data.player2Name;
+    adjustDom("displayTurn", winnerName + " has won the game");
     return true;
   } else if (data.round === 9) {
     adjustDom("displayTurn", "It's a Tie");
@@ -148,34 +166,39 @@ const checkWinner = (data) => {
 };
 
 const adjustDom = (className, textContent) => {
-    const elem = document.querySelector(`.${className}`)
-    elem.textContent = textContent;
+  const elem = document.querySelector(`.${className}`);
+  elem.textContent = textContent;
 };
 
 // assigning new value to current player
 const changePlayer = (data) => {
-    data.currentPlayer = data.currentPlayer === "X" ? "O" : "X"; // if currentPlayer is "X", change to "O", otherwise "X"
-    // adjust DOM
-    let displayTurnText = data.currentPlayer === "X" ? data.player1Name : data.player2Name // if X's turn, display player1Name, otherwise player2Name
-    adjustDom('displayTurn', `${displayTurnText}'s turn`)
+  data.currentPlayer = data.currentPlayer === "X" ? "O" : "X"; // if currentPlayer is "X", change to "O", otherwise "X"
+  // adjust DOM
+  let displayTurnText =
+    data.currentPlayer === "X" ? data.player1Name : data.player2Name; // if X's turn, display player1Name, otherwise player2Name
+  adjustDom("displayTurn", `${displayTurnText}'s turn`);
 };
 
 const easyAiMove = (data) => {
-    changePlayer(data)
-    setTimeout(() => {
-    let availableSpaces = data.board.filter((space) => space !== "X" && space !== "O");
-    let move = availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
-    data.board[move] = data.player2
-    let box = document.getElementById(`${move}`)
+  changePlayer(data);
+  data.round++;
+  let availableSpaces = data.board.filter(
+    (space) => space !== "X" && space !== "O"
+  );
+  let move =
+      availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
+    data.board[move] = data.player2;
+  setTimeout(() => {
+    let box = document.getElementById(`${move}`);
     box.textContent = data.player2;
     box.classList.add("player2");
-    }, 200)
-    if (endConditions(data)) {
-        adjustDom("displayTurn", `${data.player2Name} has won the game`)
-    }
-    changePlayer(data);
-    // let randomNumber = Math.floor(math.random() * 9)
-    // while (data.board[randomNumber] === "X" || data.board[randomNumber] === "O") {
-    //     randomNumber = Math.floor(math.random() * 9)
-    // }
-}
+  }, 300);
+  if (endConditions(data)) {
+    return;
+  }
+  changePlayer(data);
+  // let randomNumber = Math.floor(math.random() * 9)
+  // while (data.board[randomNumber] === "X" || data.board[randomNumber] === "O") {
+  //     randomNumber = Math.floor(math.random() * 9)
+  // }
+};
