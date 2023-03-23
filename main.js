@@ -55,13 +55,13 @@ const addEventListenerToGameBoard = (data) => {
   document.querySelectorAll(".box").forEach((box) => {
     // loop through each box and adds event listener
     box.addEventListener("click", (event) => {
-      // loop through each box
       playMove(event.target, data); // can be used to mark the gameboard, check win condition, change players etc.,
     });
   });
 };
 
 const initializeGame = (data) => {
+  adjustDom('displayTurn', `${data.player1Name}'s turn`)
   // initialize game variables
   initializeVariables(data);
   //console.log(data);
@@ -79,7 +79,7 @@ const playMove = (box, data) => {
   if (data.board[box.id] === "X" || data.board[box.id] === "O") {
     return;
   }
-  // adjusts the DOM for playre move, then check win condition
+  // adjusts the DOM for player move, then check win condition
   data.board[box.id] = data.currentPlayer;
   box.textContent = data.currentPlayer;
 
@@ -88,16 +88,27 @@ const playMove = (box, data) => {
   //     className = "player2"
   // same code below
   // }
-  box.classList.add(data.currentPlayer === "X" ? "player1" : "player2"); // changes class name | seeting class name, if the current player is "X" then add player1
-
+  box.classList.add(data.currentPlayer === "X" ? "player1" : "player2"); // changes class name | setting class name, if the current player is "X" then add player1
   // increase the round #
   data.round++;
-  console.log(box, data);
+  //console.log(box, data);
 
   // check end conditions
   if (endConditions(data)) {
+    return;
     // adjust DOM to reflect end condition
   }
+  // change current player
+  // change the DOM, and change data.currentPlayer
+  if (data.choice === 0) {
+    changePlayer(data)
+  } else if (data.choice === 1) {
+    // easy ai
+    easyAiMove(data);
+    data.currentPlayer = "X"
+    // change back to player1
+  }
+
 };
 
 const endConditions = (data) => {
@@ -107,8 +118,13 @@ const endConditions = (data) => {
   // game not over yet
   if (checkWinner(data)) {
     // adjust the DOM to reflect win
+    // display winner name 
+    let winnerName = data.currentPlayer === "X" ? data.player1Name : data.player2Name
+    adjustDom("displayTurn", winnerName  + " has won the game");
     return true;
   } else if (data.round === 9) {
+    adjustDom("displayTurn", "It's a Tie");
+    data.gameOver = true;
     // adjust the DOM to reflect tie
     return true;
   }
@@ -130,3 +146,36 @@ const checkWinner = (data) => {
   });
   return result;
 };
+
+const adjustDom = (className, textContent) => {
+    const elem = document.querySelector(`.${className}`)
+    elem.textContent = textContent;
+};
+
+// assigning new value to current player
+const changePlayer = (data) => {
+    data.currentPlayer = data.currentPlayer === "X" ? "O" : "X"; // if currentPlayer is "X", change to "O", otherwise "X"
+    // adjust DOM
+    let displayTurnText = data.currentPlayer === "X" ? data.player1Name : data.player2Name // if X's turn, display player1Name, otherwise player2Name
+    adjustDom('displayTurn', `${displayTurnText}'s turn`)
+};
+
+const easyAiMove = (data) => {
+    changePlayer(data)
+    setTimeout(() => {
+    let availableSpaces = data.board.filter((space) => space !== "X" && space !== "O");
+    let move = availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
+    data.board[move] = data.player2
+    let box = document.getElementById(`${move}`)
+    box.textContent = data.player2;
+    box.classList.add("player2");
+    }, 200)
+    if (endConditions(data)) {
+        adjustDom("displayTurn", `${data.player2Name} has won the game`)
+    }
+    changePlayer(data);
+    // let randomNumber = Math.floor(math.random() * 9)
+    // while (data.board[randomNumber] === "X" || data.board[randomNumber] === "O") {
+    //     randomNumber = Math.floor(math.random() * 9)
+    // }
+}
