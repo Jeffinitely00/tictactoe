@@ -12,6 +12,5 @@ Jeffrey Lim
 
 Challenges;
 
-Getting my Ai to beat me so I could debug 
-
-I was not able to implement the impossible Ai. minimax is beyond my knowledge at this time
+1.) Getting my Ai to beat me so I could debug 
+2.) I was not able to implement the impossible Ai. minimax is beyond my knowledge at this time

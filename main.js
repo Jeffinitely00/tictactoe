@@ -52,7 +52,7 @@ const initializeVariables = (data) => {
   data.gameOver = false;
   // this makes it easier for me to add things later(easy to find) | we'll always have access wherever I put the "data" variable
   // if I wanted to pass any of the data.choice/data.player1 etc., to a function, i would only need to pass the "data" variable
-  // the goal is to not use as many global variables
+  // Did not need use many global variables
 };
 
 const resetDom = () => {
@@ -95,7 +95,7 @@ const playMove = (box, data) => {
   if (data.board[box.id] === "X" || data.board[box.id] === "O") {
     return;
   }
-  // adjusts the DOM for player move, then check win condition
+  // adjusts the DOM for player move,
   data.board[box.id] = data.currentPlayer;
   box.textContent = data.currentPlayer;
 
@@ -118,8 +118,7 @@ const playMove = (box, data) => {
   // change the DOM, and change data.currentPlayer
   if (data.choice === 0) {
     changePlayer(data);
-  } else if (data.choice === 1) {
-    // easy ai
+  } else if (data.choice === 1) { // easy ai
     easyAiMove(data);
     data.currentPlayer = "X";
     // change back to player1
@@ -141,7 +140,6 @@ const endConditions = (data) => {
   } else if (data.round === 9) {
     adjustDom("displayTurn", "It's a Tie");
     data.gameOver = true;
-    // adjust the DOM to reflect tie
     return true;
   }
   return false;
@@ -149,11 +147,11 @@ const endConditions = (data) => {
 
 const checkWinner = (data) => {
   let result = false;
-  // loops over the winningConditions | each condition has 3 indexes
+  // loops over the winningConditions
   winningConditions.forEach((condition) => {
     if (
-      data.board[condition[0]] === data.board[condition[1]] &&
-      data.board[condition[1]] === data.board[condition[2]]
+      data.board[condition[0]] === data.board[condition[1]] && 
+      data.board[condition[1]] === data.board[condition[2]] // checks if three elements of the data.board array are equal
     ) {
       //console.log("player has won");
       data.gameOver = true;
@@ -163,6 +161,7 @@ const checkWinner = (data) => {
   return result;
 };
 
+// constantly used function to constantly change dom
 const adjustDom = (className, textContent) => {
   const elem = document.querySelector(`.${className}`);
   elem.textContent = textContent;
