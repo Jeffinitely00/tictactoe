@@ -1,6 +1,8 @@
 Tic Tac Toe
 Jeffrey Lim
 
+Live Site; https://jeffinitely00.github.io/tictactoe/
+
 1.) First we need to attach event (submit) listener to the form to get user data
 2.) Then attach event listeners to each "game box"
 3.) Then, intinialize game
